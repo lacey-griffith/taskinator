@@ -12,6 +12,14 @@ var taskFormHandler = function(event) {
     //have the user selected selector type appear below the task name
     var taskTypeInput = document.querySelector("select[name='task-type']").value;
 
+    // prevent empty input from creating a list item
+    if (!taskNameInput || !taskTypeInput) {
+        alert("You need to fill out the task form!");
+        return false;
+    }
+    //clear the form for a new task
+    formEl.reset();
+    
     //put info in as object
     var taskDataObj = {
         name: taskNameInput,
