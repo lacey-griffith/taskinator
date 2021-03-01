@@ -1,4 +1,7 @@
 
+//access the main element holding the sections with task lists
+var pageContentEl = document.querySelector("#page-content");
+
 //variable to keep count of tasks and apply unique id to each one
 var taskIdCounter = 0;
 
@@ -96,7 +99,23 @@ var createTaskActions = function(taskId) {
             statusSelectEl.appendChild(statusOptionEl);
         }
     return actionContainerEl;
+}
+var taskButtonHandler = function(event) {
+    console.log(event.target);
+
+    if (event.target.matches(".delete-btn")) {
+        //get elements task id
+        var taskId = event.target.getAttribute("data-task-id");
+        deleteTask(taskId);
+    }
+}
+
+var deleteTask = function(taskId) {
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+    taskSelected.remove();
 };
 
 // when button is clicked, add new li element
 formEl.addEventListener ("submit", taskFormHandler);
+//event listener for adding button actions to main element
+pageContentEl.addEventListener("click", taskButtonHandler);
