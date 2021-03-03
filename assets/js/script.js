@@ -245,6 +245,7 @@ var loadTasks = function() {
         }
     //convert tasks from string back to array of objects
     tasks = JSON.parse(tasks);
+    console.log(tasks);
 
     //loop through a tasks array to create task elements on the page from it
     for (var i = 0; i < tasks.length; i++) {
