@@ -237,9 +237,58 @@ var saveTasks = function() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
+var loadTasks = function() {
+    //get task items from local storage
+    tasks = localStorage.getItem("tasks")
+        if (!tasks || tasks === null) {
+            console.log("False");
+        }
+    //convert tasks from string back to array of objects
+    tasks = JSON.parse(tasks);
+
+    //loop through a tasks array to create task elements on the page from it
+    for (var i = 0; i < tasks.length; i++) {
+        tasks.id = taskIdCounter
+        console.log(tasks[i].id);
+
+        //create list items from tasks list item array
+        listItemEl = document.createElement("li");
+        listItemEl.className = "task-item";
+        listItemEl.setAttribute("data-task-id", tasks[i].id);
+
+        //create task info from task list items array
+        taskInfoEl = document.createElement("div");
+        taskInfoEl.className = "task-info";
+        taskInfoEl.innerHTML = "<h3 class='task-name'>" + tasks[i].name + "</h3><span class='task-type'>" + tasks[i].type + "</span>";
+        
+        //append task info to task item
+        listItemEl.appendChild(taskInfoEl)
+
+        taskActionsEl = createTaskActions(tasks[i].id)
+        listItemEl.appendChild(taskActionsEl);
+
+            if (tasks[i].status === "to do") {
+                listItemEl.querySelector("select[name='status-change']").selectedIndex = 0
+                tasksToDoEl.appendChild(listItemEl);
+            }
+            else if (tasks[i].status === "in progress") {
+                listItemEl.querySelector("select[name='status-change']").selectedIndex = 1
+                tasksInProgressEl.appendChild(listItemEl);
+            }
+            else if (tasks[i].status === "completed") {
+                listItemEl.querySelector("select[name='status-change']").selectedIndex = 2
+                tasksCompletedEl.appendChild(listItemEl);
+            }
+        taskIdCounter++
+        console.log(listItemEl);
+    }
+};
+
 // when button is clicked, add new li element
 formEl.addEventListener ("submit", taskFormHandler);
 //event listener for adding button actions to main element
 pageContentEl.addEventListener("click", taskButtonHandler);
 //event listener to change status of task (to do, in progress or completed)
 pageContentEl.addEventListener("change", taskStatusChangeHandler);
+
+loadTasks()
