@@ -241,6 +241,7 @@ var loadTasks = function() {
     //get task items from local storage
     tasks = localStorage.getItem("tasks")
         if (!tasks || tasks === null) {
+            tasks = [];
             return false;
         }
     //convert tasks from string back to array of objects
