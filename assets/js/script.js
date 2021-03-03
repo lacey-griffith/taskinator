@@ -85,6 +85,8 @@ var createTaskEl = function(taskDataObj) {
     //increase task counter for next unique id
     taskIdCounter++;
 
+    //save data locally
+    saveTasks()
 }
 
 var createTaskActions = function(taskId) {
@@ -127,7 +129,6 @@ var createTaskActions = function(taskId) {
     return actionContainerEl;
 }
 var taskButtonHandler = function(event) {
-    console.log(event.target);
 
     //get target element from event
     var targetEl = event.target;
@@ -163,10 +164,10 @@ var deleteTask = function(taskId) {
     }
     //reassign tasks array to be the same as updatedTaskArr
     tasks = updatedTaskArr;
+    saveTasks()
 };
 
 var editTask = function(taskId) {
-    console.log("editing task #" + taskId);
     //get task list item element
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
     //get content from task name and type
@@ -201,6 +202,7 @@ var completeEditTask = function(taskName, taskType, taskId) {
             tasks[i].type = taskType;
         }
     }
+    saveTasks()
 };
 
 var taskStatusChangeHandler = function(event) {
@@ -227,9 +229,13 @@ var taskStatusChangeHandler = function(event) {
         if(tasks[i].id === parseInt(taskId)) {
             tasks[i].status = statusValue;
         }
-        console.log(tasks);
     }
+    saveTasks()
 };
+
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
 
 // when button is clicked, add new li element
 formEl.addEventListener ("submit", taskFormHandler);
