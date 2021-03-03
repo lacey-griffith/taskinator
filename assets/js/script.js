@@ -49,11 +49,10 @@ var taskFormHandler = function(event) {
             name: taskNameInput,
             type: taskTypeInput,
             status: "to do"
-        }    
-        
+        }
+    }
         //send as argument to createTaskEl
         createTaskEl(taskDataObj);
-    }
 }
 
 var createTaskEl = function(taskDataObj) {
