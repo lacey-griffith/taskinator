@@ -85,6 +85,7 @@ var createTaskEl = function(taskDataObj) {
     //increase task counter for next unique id
     taskIdCounter++;
 
+    
     //save data locally
     saveTasks()
 }
@@ -241,7 +242,7 @@ var loadTasks = function() {
     //get task items from local storage
     tasks = localStorage.getItem("tasks")
         if (!tasks || tasks === null) {
-            console.log("False");
+            return false;
         }
     //convert tasks from string back to array of objects
     tasks = JSON.parse(tasks);
